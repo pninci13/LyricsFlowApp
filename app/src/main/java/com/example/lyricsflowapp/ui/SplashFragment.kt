@@ -1,4 +1,4 @@
-package com.example.lyricsflowapp.ui.fragments
+package com.example.lyricsflowapp.ui
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
