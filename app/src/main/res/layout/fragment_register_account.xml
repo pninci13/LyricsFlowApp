@@ -27,10 +27,10 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:text="@string/create_account"
+                    android:textColor="@color/white"
                     android:layout_gravity="center_horizontal"
-                    android:fontFamily="@font/montserrat_bold"
-                    android:text="@string/recover_account"
-                    android:textColor="@color/white" />
+                    android:fontFamily="@font/montserrat_bold"/>
 
             </androidx.appcompat.widget.Toolbar>
 
@@ -64,13 +64,32 @@
                 android:padding="16dp"
                 android:textSize="14sp" />
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/montserrat_regular"
+                android:text="@string/password"
+                android:textColor="@color/white" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:autofillHints="password"
+                android:background="@drawable/input_bg"
+                android:hint="@string/password_hint"
+                android:inputType="textPassword"
+                android:padding="16dp"
+                android:textSize="14sp" />
+
             <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:background="@drawable/button_bg"
                 android:fontFamily="@font/montserrat_bold"
-                android:text="@string/send"
+                android:text="@string/register_account"
                 android:textAllCaps="false"
                 app:backgroundTint="@null" />
 
