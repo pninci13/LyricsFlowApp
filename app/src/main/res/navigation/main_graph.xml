@@ -11,11 +11,11 @@
         android:label="fragment_splash"
         tools:layout="@layout/fragment_splash" >
         <action
-            android:id="@+id/action_splashFragment_to_loginFragment2"
-            app:destination="@id/loginFragment2" />
+            android:id="@+id/action_splashFragment_to_landingPageFragment"
+            app:destination="@id/landingPageFragment" />
     </fragment>
     <fragment
-        android:id="@+id/loginFragment2"
+        android:id="@+id/landingPageFragment"
         android:name="com.example.lyricsflowapp.ui.fragments.auth.LandingPageFragment"
         android:label="fragment_landing_page"
         tools:layout="@layout/fragment_landing_page" />
