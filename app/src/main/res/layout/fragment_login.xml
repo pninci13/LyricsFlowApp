@@ -12,8 +12,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:padding="16dp">
-
+        android:padding="24dp">
 
         <TextView
             android:layout_width="match_parent"
@@ -52,7 +51,27 @@
             android:autofillHints="password"
             android:inputType="textPassword" />
 
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp">
+
+            <TextView
+                android:id="@+id/forgotPasswordBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:minHeight="8dp"
+                android:layout_gravity="end"
+                android:text="@string/forgot_password"
+                android:textColor="#E0E0E1"
+                android:fontFamily="@font/montserrat_bold"
+                android:clickable="true"
+                android:focusable="true"/>
+
+        </FrameLayout>
+
         <Button
+            android:id="@+id/loginBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -61,7 +80,6 @@
             android:text="@string/login"
             android:textAllCaps="false"
             app:backgroundTint="@null" />
-
 
     </LinearLayout>
 </ScrollView>

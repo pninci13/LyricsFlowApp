@@ -21,6 +21,9 @@
     <!--Recover Account Fragment-->
     <string name="recover_account">Recover Account</string>
     <string name="send">Send</string>
+    <string name="username">Username</string>
+    <string name="type_your_username">Type your username</string>
+    <string name="forgot_password">Forgot password ?</string>
 
 
 </resources>

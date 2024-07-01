@@ -20,6 +20,7 @@
             android:layout_gravity="center"/>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/loginBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="128dp"
@@ -39,14 +40,15 @@
             android:fontFamily="@font/montserrat_bold"/>
 
         <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/signUpBtn"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="12dp"
-            android:text="@string/sign_up"
-            android:fontFamily="@font/montserrat_bold"
-            android:textAllCaps="false"
             android:background="@drawable/border_with_no_bg"
-            android:textColor="@color/component_color"/>
+            android:fontFamily="@font/montserrat_bold"
+            android:text="@string/sign_up"
+            android:textAllCaps="false"
+            android:textColor="@color/component_color" />
 
     </LinearLayout>
 

@@ -18,5 +18,31 @@
         android:id="@+id/landingPageFragment"
         android:name="com.example.lyricsflowapp.ui.fragments.auth.LandingPageFragment"
         android:label="fragment_landing_page"
-        tools:layout="@layout/fragment_landing_page" />
+        tools:layout="@layout/fragment_landing_page" >
+        <action
+            android:id="@+id/action_landingPageFragment_to_loginFragment"
+            app:destination="@id/loginFragment" />
+        <action
+            android:id="@+id/action_landingPageFragment_to_registerAccountFragment"
+            app:destination="@id/registerAccountFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment"
+        android:name="com.example.lyricsflowapp.ui.fragments.auth.LoginFragment"
+        android:label="fragment_login"
+        tools:layout="@layout/fragment_login" >
+        <action
+            android:id="@+id/action_loginFragment_to_recoverAccountFragment"
+            app:destination="@id/recoverAccountFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/registerAccountFragment"
+        android:name="com.example.lyricsflowapp.ui.fragments.auth.RegisterAccountFragment"
+        android:label="fragment_register_account"
+        tools:layout="@layout/fragment_register_account" />
+    <fragment
+        android:id="@+id/recoverAccountFragment"
+        android:name="com.example.lyricsflowapp.ui.fragments.auth.RecoverAccountFragment"
+        android:label="fragment_recover_account"
+        tools:layout="@layout/fragment_recover_account" />
 </navigation>
