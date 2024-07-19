@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_margin="8dp"
-    app:cardCornerRadius="8dp">
+    app:cardCornerRadius="8dp"
+    android:background="#989898">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -37,7 +38,7 @@
             android:layout_toEndOf="@id/ivSongImage"
             android:layout_marginStart="16dp"
             android:textSize="14sp"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/black" />
 
         <TextView
             android:id="@+id/tvExplanation"
@@ -47,6 +48,16 @@
             android:layout_toEndOf="@id/ivSongImage"
             android:layout_marginStart="16dp"
             android:textSize="12sp"
-            android:textColor="@android:color/black"/>
+            android:textColor="@android:color/black"
+            />
+
+        <TextView
+            android:id="@+id/tvScore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="8dp"
+            android:textSize="12sp"
+            android:textColor="@android:color/black" />
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

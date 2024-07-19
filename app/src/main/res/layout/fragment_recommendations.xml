@@ -1,21 +1,20 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
     android:padding="16dp"
     android:background="#121212">
 
-    <!-- Title TextView -->
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_regular"
+        android:fontFamily="@font/montserrat_semibold"
         android:text="Topic Based Song Recommendations"
         android:textColor="@color/white"
-        android:textSize="14sp"
-        android:layout_marginBottom="16dp"
-        android:layout_alignParentTop="true"/>
+        android:layout_marginBottom="8dp"
+        android:textSize="18sp" />
 
     <!-- Input Field for Query -->
     <EditText
@@ -23,36 +22,65 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Enter topic"
-        android:fontFamily="@font/montserrat_regular"
         android:inputType="text"
         android:layout_marginTop="8dp"
+        android:fontFamily="@font/montserrat_regular"
         android:background="@drawable/input_bg"
         android:textColorHint="@android:color/darker_gray"
         android:textColor="@android:color/black"
-        android:padding="12dp"
-        android:layout_below="@id/tvTitle"
-        android:layout_marginBottom="8dp" />
+        android:padding="10dp"
+        android:layout_marginBottom="8dp"
+        android:minHeight="48dp" />
 
-    <!-- Button to Fetch Recommendations -->
-    <Button
-        android:id="@+id/btnFetchRecommendations"
-        android:layout_width="wrap_content"
+    <!-- Space between Input Field and Buttons -->
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="8dp" />
+
+    <!-- Buttons Layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Get Songs"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/button_bg"
-        android:textColor="@android:color/white"
-        android:layout_below="@id/etQuery"
-        android:layout_marginBottom="16dp"
-        android:layout_centerHorizontal="true"
-        app:backgroundTint="@null"/>
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="16dp">
+
+        <!-- Button to Fetch Recommendations -->
+        <Button
+            android:id="@+id/btnFetchRecommendations"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Get Songs"
+            android:fontFamily="@font/montserrat_semibold"
+            android:background="@drawable/button_bg"
+            android:textColor="@android:color/white"
+            android:layout_marginEnd="8dp"
+            android:padding="16dp"
+            android:minHeight="48dp"
+            app:backgroundTint="@null"/>
+
+        <!-- Clear Button -->
+        <Button
+            android:id="@+id/btnClear"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Clear"
+            android:fontFamily="@font/montserrat_semibold"
+            android:background="@drawable/border_with_no_bg"
+            android:textColor="@color/component_color"
+            android:padding="16dp"
+            android:minHeight="48dp"
+            app:backgroundTint="@null"/>
+    </LinearLayout>
 
     <!-- Loading Indicator -->
     <ProgressBar
         android:id="@+id/progressBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_gravity="center"
         android:visibility="gone"
         android:indeterminateTint="@color/white"/>
 
@@ -60,9 +88,9 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:visibility="gone"
-        android:layout_below="@id/btnFetchRecommendations"
         android:layout_marginTop="16dp"/>
 
-</RelativeLayout>
+</LinearLayout>

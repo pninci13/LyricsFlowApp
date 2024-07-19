@@ -40,6 +40,12 @@ class RecommendationsFragment : Fragment() {
                 Toast.makeText(requireContext(), "Please enter a topic", Toast.LENGTH_SHORT).show()
             }
         }
+
+        binding.btnClear.setOnClickListener {
+            binding.etQuery.text.clear()
+            binding.recyclerView.visibility = View.GONE
+            Toast.makeText(requireContext(), "Cleared", Toast.LENGTH_SHORT).show()
+        }
     }
 
     private fun fetchRecommendations(query: String) {
@@ -119,7 +125,8 @@ class RecommendationsFragment : Fragment() {
             val songUrl = jsonObject.getString("song_url")
             val explanation =
                 jsonObject.getString("about_section") // Assuming this is the explanation
-            songs.add(Song(title, artist, imageUrl, songUrl, explanation))
+            val score = jsonObject.getDouble("score") // Add this line
+            songs.add(Song(title, artist, imageUrl, songUrl, explanation, score))
         }
         Log.d("RecommendationsFragment", "Parsed songs: $songs")
         return songs
