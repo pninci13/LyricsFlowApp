@@ -1,25 +1,23 @@
 package com.example.lyricsflowapp.ui.fragments.auth
 
-import android.content.Context
 import android.os.Bundle
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.view.isVisible
-import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.lyricsflowapp.R
 import com.example.lyricsflowapp.databinding.FragmentLoginBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.database.*
+import android.util.Log
 
 class LoginFragment : Fragment() {
 
     private var _binding: FragmentLoginBinding? = null
     private val binding get() = _binding!!
     private lateinit var auth: FirebaseAuth
-    private lateinit var database: DatabaseReference
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,13 +31,11 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         auth = FirebaseAuth.getInstance()
-        database = FirebaseDatabase.getInstance().reference
         initClicks()
     }
 
     private fun initClicks() {
         binding.loginBtn.setOnClickListener { validateUserInputData() }
-
         binding.forgotPasswordBtn.setOnClickListener {
             findNavController().navigate(R.id.action_loginFragment_to_recoverAccountFragment)
         }
@@ -54,45 +50,31 @@ class LoginFragment : Fragment() {
                 binding.loginProgressBar.isVisible = true
                 loginUser(email, password)
             } else {
-                Toast.makeText(requireContext(), "Please fill out the password field!", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Please fill out the password field! ", Toast.LENGTH_SHORT).show()
             }
         } else {
-            Toast.makeText(requireContext(), "Please fill out the email field!", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Please fill out the email field! ", Toast.LENGTH_SHORT).show()
         }
     }
 
     private fun loginUser(email: String, password: String) {
+        Log.d("LoginFragment", "Attempting to sign in with email: $email")
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    val userId = auth.currentUser?.uid
-                    if (userId != null) {
-                        database.child("users").child(userId).addListenerForSingleValueEvent(object : ValueEventListener {
-                            override fun onDataChange(snapshot: DataSnapshot) {
-                                val username = snapshot.child("username").getValue(String::class.java)
-                                saveUsernameToSharedPreferences(username ?: "User")
-                                findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
-                            }
-
-                            override fun onCancelled(error: DatabaseError) {
-                                binding.loginProgressBar.isVisible = false
-                                Toast.makeText(requireContext(), "Failed to retrieve user data", Toast.LENGTH_SHORT).show()
-                            }
-                        })
-                    }
+                    Log.d("LoginFragment", "signInWithEmail:success")
+                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                 } else {
+                    Log.w("LoginFragment", "signInWithEmail:failure", task.exception)
                     binding.loginProgressBar.isVisible = false
-                    Toast.makeText(requireContext(), "Login failed", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Authentication Failed: ${task.exception?.message}", Toast.LENGTH_SHORT).show()
                 }
             }
-    }
-
-
-    private fun saveUsernameToSharedPreferences(username: String) {
-        val sharedPreferences = requireActivity().getSharedPreferences("userPrefs", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.putString("username", username)
-        editor.apply()
+            .addOnFailureListener { exception ->
+                Log.e("LoginFragment", "signInWithEmail:failure", exception)
+                binding.loginProgressBar.isVisible = false
+                Toast.makeText(requireContext(), "Authentication Failed: ${exception.message}", Toast.LENGTH_SHORT).show()
+            }
     }
 
     override fun onDestroyView() {

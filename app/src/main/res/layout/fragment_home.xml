@@ -52,6 +52,7 @@
 
             <!-- Recommendation Button -->
             <LinearLayout
+                android:id="@+id/getSongsBtn"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_margin="8dp"
@@ -78,6 +79,7 @@
 
             <!-- History Button -->
             <LinearLayout
+                android:id="@+id/historyBtn"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_margin="8dp"
