@@ -13,6 +13,7 @@
     <string name="email_hint">email@email.com</string>
     <string name="password">Password</string>
     <string name="password_hint">******</string>
+    <string name="forgot_password">Forgot password ?</string>
 
     <!--    Register Account Fragment-->
     <string name="register_account">Register Account</string>
@@ -23,7 +24,13 @@
     <string name="send">Send</string>
     <string name="username">Username</string>
     <string name="type_your_username">Type your username</string>
-    <string name="forgot_password">Forgot password ?</string>
+
+    <!-- Home Screen -->
+    <string name="welcome">Welcome</string>
+    <string name="get_songs">Get Songs</string>
+    <string name="history">History</string>
+    <string name="spotify">Spotify</string>
+    <string name="settings">Settings</string>
 
 
 </resources>

@@ -22,15 +22,16 @@
             android:textColor="@color/white" />
 
         <EditText
+            android:id="@+id/loginEmailInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
+            android:autofillHints="emailAddress"
             android:background="@drawable/input_bg"
             android:hint="@string/email_hint"
+            android:inputType="textEmailAddress"
             android:padding="16dp"
-            android:textSize="14sp"
-            android:autofillHints="emailAddress"
-            android:inputType="textEmailAddress" />
+            android:textSize="14sp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -41,6 +42,7 @@
             android:textColor="@color/white" />
 
         <EditText
+            android:id="@+id/loginPasswordInput"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
@@ -80,6 +82,15 @@
             android:text="@string/login"
             android:textAllCaps="false"
             app:backgroundTint="@null" />
+
+        <ProgressBar
+            android:id="@+id/loginProgressBar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/white"
+            android:layout_marginTop="16dp"
+            android:visibility="invisible"
+            tools:visibility="visible"/>
 
     </LinearLayout>
 </ScrollView>

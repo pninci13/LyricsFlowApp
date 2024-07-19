@@ -54,6 +54,7 @@
                 android:textColor="@color/white" />
 
             <EditText
+                android:id="@+id/recoverAccountEmailInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -65,6 +66,7 @@
                 android:textSize="14sp" />
 
             <Button
+                android:id="@+id/sendRecoverAccountButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -73,6 +75,16 @@
                 android:text="@string/send"
                 android:textAllCaps="false"
                 app:backgroundTint="@null" />
+
+            <ProgressBar
+                android:id="@+id/recoverAccProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:indeterminateTint="@color/white"
+                android:layout_marginTop="16dp"
+                android:visibility="invisible"
+                tools:visibility="visible"
+                android:layout_gravity="center_horizontal"/>
 
         </LinearLayout>
 

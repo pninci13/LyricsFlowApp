@@ -55,6 +55,7 @@
                 android:textColor="@color/white" />
 
             <EditText
+                android:id="@+id/createAccUsernameInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -74,6 +75,7 @@
                 android:textColor="@color/white" />
 
             <EditText
+                android:id="@+id/createAccEmailInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -93,6 +95,7 @@
                 android:textColor="@color/white" />
 
             <EditText
+                android:id="@+id/createAccPasswordInput"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -104,6 +107,7 @@
                 android:textSize="14sp" />
 
             <Button
+                android:id="@+id/registerAccountButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -112,6 +116,16 @@
                 android:text="@string/register_account"
                 android:textAllCaps="false"
                 app:backgroundTint="@null" />
+            
+            <ProgressBar
+                android:id="@+id/createAccProgressBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:visibility="invisible"
+                tools:visibility="visible"
+                android:indeterminateTint="@color/white"
+                android:layout_gravity="center_horizontal"/>
 
         </LinearLayout>
 
