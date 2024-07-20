@@ -5,6 +5,20 @@
     android:padding="16dp"
     android:background="#121212">
 
+    <!-- Logout Button -->
+    <ImageButton
+        android:id="@+id/btnLogout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_logout"
+        android:background="@android:color/transparent"
+        android:minHeight="48dp"
+        android:minWidth="48dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginEnd="0dp"/>
+
     <!-- Welcome Text -->
     <TextView
         android:id="@+id/tvWelcomeBack"
@@ -14,7 +28,7 @@
         android:fontFamily="@font/montserrat_regular"
         android:textSize="18sp"
         android:textColor="#D1D1D1"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="100dp"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"/>
 
@@ -28,7 +42,7 @@
         android:textSize="24sp"
         android:textColor="@color/white"
         android:layout_below="@id/tvWelcomeBack"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="6dp"
         android:layout_centerHorizontal="true"/>
 
     <!-- Centralizing Layout -->

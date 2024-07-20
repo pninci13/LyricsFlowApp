@@ -5,13 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.lyricsflowapp.R
 import com.example.lyricsflowapp.databinding.FragmentRegisterAccountBinding
+import com.example.lyricsflowapp.ui.helpers.AlertHelper
+import com.example.lyricsflowapp.ui.helpers.isNetworkAvailable
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.userProfileChangeRequest
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 
@@ -40,6 +42,9 @@ class RegisterAccountFragment : Fragment() {
 
     private fun initClickListener() {
         binding.registerAccountButton.setOnClickListener { validateUserInputData() }
+        binding.goBackBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_registerAccountFragment_to_landingPageFragment)
+        }
     }
 
     private fun validateUserInputData() {
@@ -47,19 +52,35 @@ class RegisterAccountFragment : Fragment() {
         val password = binding.createAccPasswordInput.text.toString().trim()
         val username = binding.createAccUsernameInput.text.toString().trim()
 
-        if (username.isNotEmpty()) {
-            if (email.isNotEmpty()) {
-                if (password.isNotEmpty()) {
-                    binding.createAccProgressBar.isVisible = true
-                    registerUser(email, password, username)
+        if (isNetworkAvailable(requireContext())) {
+            if (username.isNotEmpty()) {
+                if (email.isNotEmpty()) {
+                    if (password.isNotEmpty()) {
+                        binding.createAccProgressBar.isVisible = true
+                        registerUser(email, password, username)
+                    } else {
+                        AlertHelper.showAlertDialog(
+                            requireActivity(),
+                            "Please fill out the password field!"
+                        )
+                    }
                 } else {
-                    Toast.makeText(requireContext(), "Please fill out the password field!", Toast.LENGTH_SHORT).show()
+                    AlertHelper.showAlertDialog(
+                        requireActivity(),
+                        "Please fill out the email field!"
+                    )
                 }
             } else {
-                Toast.makeText(requireContext(), "Please fill out the email field!", Toast.LENGTH_SHORT).show()
+                AlertHelper.showAlertDialog(
+                    requireActivity(),
+                    "Please fill out the username field!"
+                )
             }
         } else {
-            Toast.makeText(requireContext(), "Please fill out the username field!", Toast.LENGTH_SHORT).show()
+            AlertHelper.showAlertDialog(
+                requireActivity(),
+                "No internet connection. Please check your connection and try again."
+            )
         }
     }
 
@@ -67,7 +88,8 @@ class RegisterAccountFragment : Fragment() {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
-                    val userId = auth.currentUser?.uid
+                    val user = auth.currentUser
+                    val userId = user?.uid
                     val userMap = hashMapOf(
                         "username" to username,
                         "email" to email
@@ -76,25 +98,52 @@ class RegisterAccountFragment : Fragment() {
                     if (userId != null) {
                         database.child("users").child(userId).setValue(userMap)
                             .addOnSuccessListener {
-                                saveUsernameToSharedPreferences(username)
-                                findNavController().navigate(R.id.action_registerAccountFragment_to_homeFragment)
+                                // Update the user profile with the username
+                                val profileUpdates = userProfileChangeRequest {
+                                    displayName = username
+                                }
+
+                                user.updateProfile(profileUpdates)
+                                    .addOnCompleteListener { profileTask ->
+                                        if (profileTask.isSuccessful) {
+                                            saveUsernameToSharedPreferences(username)
+                                            binding.createAccProgressBar.isVisible = false
+                                            AlertHelper.showSuccessDialog(
+                                                requireActivity(),
+                                                "Success",
+                                                "Account created successfully!"
+                                            ) {
+                                                findNavController().navigate(R.id.action_authentication_to_homeFragment)
+                                            }
+                                        } else {
+                                            binding.createAccProgressBar.isVisible = false
+                                            AlertHelper.showAlertDialog(
+                                                requireActivity(),
+                                                "Failed to update user profile!"
+                                            )
+                                        }
+                                    }
                             }
                             .addOnFailureListener { e ->
                                 binding.createAccProgressBar.isVisible = false
-                                Toast.makeText(requireContext(), "Failed to save user data", Toast.LENGTH_SHORT).show()
+                                AlertHelper.showAlertDialog(
+                                    requireActivity(),
+                                    "Failed to save user data!"
+                                )
                                 e.printStackTrace()
                             }
                     }
                 } else {
                     binding.createAccProgressBar.isVisible = false
-                    Toast.makeText(requireContext(), "Registration failed", Toast.LENGTH_SHORT).show()
+                    AlertHelper.showAlertDialog(requireActivity(), "Registration failed!")
                     task.exception?.printStackTrace()
                 }
             }
     }
 
     private fun saveUsernameToSharedPreferences(username: String) {
-        val sharedPreferences = requireActivity().getSharedPreferences("userPrefs", Context.MODE_PRIVATE)
+        val sharedPreferences =
+            requireActivity().getSharedPreferences("userPrefs", Context.MODE_PRIVATE)
         val editor = sharedPreferences.edit()
         editor.putString("username", username)
         editor.apply()
