@@ -50,6 +50,10 @@ class HomeFragment : Fragment() {
             findNavController().navigate(R.id.action_homeFragment_to_historyFragment)
         }
 
+        binding.settingsBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_settingsFragment)
+        }
+
         binding.btnLogout.setOnClickListener {
             userLogout()
         }

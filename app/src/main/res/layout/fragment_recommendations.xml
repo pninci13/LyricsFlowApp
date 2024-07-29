@@ -1,22 +1,40 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="16dp"
-    android:background="#121212">
+    android:padding="16dp">
 
-    <TextView
-        android:id="@+id/tvTitle"
+    <!-- RelativeLayout to align goBackBtn and tvTitle -->
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:fontFamily="@font/montserrat_semibold"
-        android:text="Topic Based Song Recommendations"
-        android:textColor="@color/white"
         android:layout_marginBottom="8dp"
-        android:textSize="18sp" />
+        android:layout_marginTop="16dp">
 
-    <!-- Input Field for Query -->
+        <ImageButton
+            android:id="@+id/goBackBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_go_back"
+            android:background="@android:color/transparent"
+            android:minHeight="48dp"
+            android:minWidth="48dp"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/montserrat_semibold"
+            android:gravity="center"
+            android:text="Topic Based Recommendations"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_centerInParent="true"/>
+    </RelativeLayout>
+
     <EditText
         android:id="@+id/etQuery"
         android:layout_width="match_parent"
@@ -28,9 +46,9 @@
         android:background="@drawable/input_bg"
         android:textColorHint="@android:color/darker_gray"
         android:textColor="@android:color/black"
-        android:padding="10dp"
+        android:padding="8dp"
         android:layout_marginBottom="8dp"
-        android:minHeight="48dp" />
+        android:minHeight="40dp" />
 
     <!-- Space between Input Field and Buttons -->
     <Space
@@ -46,8 +64,6 @@
         android:layout_marginBottom="16dp">
 
         <!-- Button to Fetch Recommendations -->
-
-        <!-- Clear Button -->
         <Button
             android:id="@+id/btnFetchRecommendations"
             android:layout_width="0dp"
@@ -56,12 +72,13 @@
             android:layout_weight="1"
             android:background="@drawable/button_bg"
             android:fontFamily="@font/montserrat_semibold"
-            android:minHeight="48dp"
-            android:padding="16dp"
+            android:minHeight="40dp"
+            android:padding="12dp"
             android:text="Get Songs"
             android:textColor="@android:color/white"
             app:backgroundTint="@null" />
 
+        <!-- Clear Button -->
         <Button
             android:id="@+id/btnClear"
             android:layout_width="0dp"
@@ -71,8 +88,8 @@
             android:fontFamily="@font/montserrat_semibold"
             android:background="@drawable/border_with_no_bg"
             android:textColor="@color/component_color"
-            android:padding="16dp"
-            android:minHeight="48dp"
+            android:padding="12dp"
+            android:minHeight="40dp"
             app:backgroundTint="@null"/>
     </LinearLayout>
 

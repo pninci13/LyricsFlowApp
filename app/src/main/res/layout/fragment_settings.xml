@@ -1,0 +1,130 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".ui.fragments.settings.SettingsFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/appBarLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/background_color">
+
+        <androidx.appcompat.widget.Toolbar
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageButton
+                android:id="@+id/goBackBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:src="@drawable/ic_go_back" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:fontFamily="@font/montserrat_bold"
+                android:text="Settings"
+                android:textColor="@color/white" />
+
+        </androidx.appcompat.widget.Toolbar>
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnChangeUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/settings_options_bg"
+                android:drawableLeft="@drawable/ic_person"
+                android:drawablePadding="8dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="start|center_vertical"
+                android:padding="16dp"
+                android:text="Change Username"
+                android:textColor="@color/white"
+                app:backgroundTint="@null"/>
+
+            <Button
+                android:id="@+id/btnChangePassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/settings_options_bg"
+                android:drawableLeft="@drawable/ic_open_lock"
+                android:drawablePadding="8dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="start|center_vertical"
+                android:padding="16dp"
+                android:text="Change Password"
+                android:textColor="@color/white"
+                app:backgroundTint="@null"/>
+
+            <Button
+                android:id="@+id/btnReportBug"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/settings_options_bg"
+                android:drawableLeft="@drawable/ic_warning"
+                android:drawablePadding="8dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="start|center_vertical"
+                android:padding="16dp"
+                android:text="Report a Bug"
+                android:textColor="@color/white"
+                app:backgroundTint="@null"/>
+
+            <Button
+                android:id="@+id/btnLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/settings_options_bg"
+                android:drawableLeft="@drawable/ic_logout"
+                android:drawablePadding="8dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="start|center_vertical"
+                android:padding="16dp"
+                android:text="Logout"
+                android:textColor="@color/white"
+                app:backgroundTint="@null"/>
+
+            <Button
+                android:id="@+id/btnDeleteAccount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/settings_delete_bg"
+                android:drawableLeft="@drawable/ic_delete"
+                android:drawablePadding="8dp"
+                android:fontFamily="@font/montserrat_semibold"
+                android:gravity="start|center_vertical"
+                android:padding="16dp"
+                android:text="Delete Account"
+                android:textColor="@color/white"
+                app:backgroundTint="@null"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

@@ -37,6 +37,10 @@ android {
     viewBinding {
         enable = true
     }
+    buildFeatures {
+        //noinspection DataBindingWithoutKapt
+        dataBinding = true
+    }
 }
 
 dependencies {
@@ -50,6 +54,7 @@ dependencies {
     implementation(libs.androidx.preference)
     implementation(libs.androidx.preference.ktx)
     implementation(libs.androidx.recyclerview)
+    implementation(libs.androidx.databinding.runtime)
 
     // JUnit and Espresso (Tests)
     testImplementation(libs.junit)

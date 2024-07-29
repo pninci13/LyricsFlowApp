@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.lyricsflowapp.databinding.FragmentRecommendationsBinding
+import com.example.lyricsflowapp.ui.helpers.FirebaseRepository
 import okhttp3.*
 import okhttp3.MediaType.Companion.toMediaType
 import org.json.JSONArray
@@ -20,12 +21,15 @@ class RecommendationsFragment : Fragment() {
     private var _binding: FragmentRecommendationsBinding? = null
     private val binding get() = _binding!!
     private val client = OkHttpClient()
+    private lateinit var repository: FirebaseRepository
+    private val userId = "someUserId" // Replace with actual user ID
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentRecommendationsBinding.inflate(inflater, container, false)
+        repository = FirebaseRepository()
         return binding.root
     }
 
@@ -35,7 +39,7 @@ class RecommendationsFragment : Fragment() {
         binding.btnFetchRecommendations.setOnClickListener {
             val query = binding.etQuery.text.toString().trim()
             if (query.isNotEmpty()) {
-                fetchRecommendations(query)
+                fetchRecommendations(query, 3) // Retry up to 3 times
             } else {
                 Toast.makeText(requireContext(), "Please enter a topic", Toast.LENGTH_SHORT).show()
             }
@@ -48,7 +52,7 @@ class RecommendationsFragment : Fragment() {
         }
     }
 
-    private fun fetchRecommendations(query: String) {
+    private fun fetchRecommendations(query: String, retryCount: Int) {
         Log.d("RecommendationsFragment", "Fetching recommendations for query: $query")
         binding.progressBar.visibility = View.VISIBLE
         binding.recyclerView.visibility = View.GONE
@@ -67,13 +71,18 @@ class RecommendationsFragment : Fragment() {
         client.newCall(request).enqueue(object : Callback {
             override fun onFailure(call: Call, e: IOException) {
                 Log.e("RecommendationsFragment", "Network request failed: ${e.message}")
-                activity?.runOnUiThread {
-                    binding.progressBar.visibility = View.GONE
-                    Toast.makeText(
-                        requireContext(),
-                        "Failed to fetch recommendations",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                if (retryCount > 0) {
+                    Log.d("RecommendationsFragment", "Retrying... ($retryCount left)")
+                    fetchRecommendations(query, retryCount - 1)
+                } else {
+                    activity?.runOnUiThread {
+                        binding.progressBar.visibility = View.GONE
+                        Toast.makeText(
+                            requireContext(),
+                            "Failed to fetch recommendations",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
                 }
             }
 
@@ -96,6 +105,10 @@ class RecommendationsFragment : Fragment() {
                 response.body?.string()?.let { responseBody ->
                     Log.d("RecommendationsFragment", "Network response: $responseBody")
                     val songs = parseSongs(responseBody)
+                    if (songs.isNotEmpty()) {
+                        val topMatch = songs[0].title
+                        repository.insertHistory(userId, query, topMatch)
+                    }
                     activity?.runOnUiThread {
                         displayRecommendations(songs)
                     }

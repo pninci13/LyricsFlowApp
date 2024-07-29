@@ -146,6 +146,7 @@
 
             <!-- Settings Button -->
             <LinearLayout
+                android:id="@+id/settingsBtn"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_margin="8dp"
