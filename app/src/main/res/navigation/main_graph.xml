@@ -41,12 +41,20 @@
         android:id="@+id/recommendationsFragment"
         android:name="com.example.lyricsflowapp.ui.fragments.recommendations.RecommendationsFragment"
         android:label="fragment_recommendations"
-        tools:layout="@layout/fragment_recommendations" />
+        tools:layout="@layout/fragment_recommendations" >
+        <action
+            android:id="@+id/action_recommendationsFragment_to_homeFragment2"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <fragment
         android:id="@+id/historyFragment"
         android:name="com.example.lyricsflowapp.ui.fragments.history.HistoryFragment"
         android:label="fragment_history"
-        tools:layout="@layout/fragment_history" />
+        tools:layout="@layout/fragment_history" >
+        <action
+            android:id="@+id/action_historyFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
     <navigation android:id="@+id/authentication"
         app:startDestination="@id/landingPageFragment">
         <fragment
@@ -101,5 +109,9 @@
         android:id="@+id/settingsFragment"
         android:name="com.example.lyricsflowapp.ui.fragments.settings.SettingsFragment"
         android:label="fragment_settings"
-        tools:layout="@layout/fragment_settings" />
+        tools:layout="@layout/fragment_settings" >
+        <action
+            android:id="@+id/action_settingsFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
 </navigation>

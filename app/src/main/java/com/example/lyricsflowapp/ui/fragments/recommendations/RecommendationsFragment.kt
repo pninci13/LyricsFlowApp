@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.lyricsflowapp.R
 import com.example.lyricsflowapp.databinding.FragmentRecommendationsBinding
 import com.example.lyricsflowapp.ui.helpers.FirebaseRepository
 import okhttp3.*
@@ -50,6 +52,12 @@ class RecommendationsFragment : Fragment() {
             binding.recyclerView.visibility = View.GONE
             Toast.makeText(requireContext(), "Cleared", Toast.LENGTH_SHORT).show()
         }
+
+        // Go back to home page
+        binding.goBackBtn.setOnClickListener {
+            findNavController().navigate(R.id.action_recommendationsFragment_to_homeFragment2)
+        }
+
     }
 
     private fun fetchRecommendations(query: String, retryCount: Int) {
