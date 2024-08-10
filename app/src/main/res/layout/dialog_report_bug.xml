@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/dialog_background"
+    android:orientation="vertical"
+    android:minHeight="300dp"
+    android:padding="24dp">
+
+    <TextView
+        android:id="@+id/alertDialogMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Type the Bug below"
+        android:fontFamily="@font/montserrat_semibold"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:layout_gravity="center_horizontal"
+        android:paddingBottom="16dp"
+        android:textAlignment="center" />
+
+    <EditText
+        android:id="@+id/bugDescriptionEditText"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:hint="Type Here"
+        android:inputType="textMultiLine"
+        android:padding="8dp"
+        android:background="@drawable/rounded_edit_text"
+        android:textColor="@android:color/black"
+        android:textColorHint="@android:color/black"
+        android:gravity="center"
+        android:fontFamily="@font/montserrat_regular" />
+
+    <Button
+        android:id="@+id/sendButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Send"
+        android:fontFamily="@font/montserrat_semibold"
+        android:textColor="@android:color/white"
+        android:background="@drawable/button_bg"
+        app:backgroundTint="@null"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"/>
+</LinearLayout>
