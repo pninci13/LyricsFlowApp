@@ -55,6 +55,7 @@ dependencies {
     implementation(libs.androidx.preference.ktx)
     implementation(libs.androidx.recyclerview)
     implementation(libs.androidx.databinding.runtime)
+    implementation(libs.androidthings)
 
     // JUnit and Espresso (Tests)
     testImplementation(libs.junit)
@@ -65,7 +66,7 @@ dependencies {
     implementation(libs.androidx.navigation.fragment.ktx)
     implementation(libs.androidx.navigation.ui.ktx)
 
-    // Firebase
+    // Firebasea
     implementation(platform("com.google.firebase:firebase-bom:33.1.1"))
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-database")

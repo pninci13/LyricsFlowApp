@@ -120,6 +120,7 @@
 
             <!-- Spotify Integration -->
             <LinearLayout
+                android:id="@+id/spotifyBtn"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
                 android:layout_margin="8dp"

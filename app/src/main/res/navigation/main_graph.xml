@@ -113,5 +113,8 @@
         <action
             android:id="@+id/action_settingsFragment_to_homeFragment"
             app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_settingsFragment_to_authentication"
+            app:destination="@id/authentication" />
     </fragment>
 </navigation>

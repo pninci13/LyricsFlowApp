@@ -13,9 +13,11 @@ import com.example.lyricsflowapp.databinding.FragmentRegisterAccountBinding
 import com.example.lyricsflowapp.ui.helpers.AlertHelper
 import com.example.lyricsflowapp.ui.helpers.isNetworkAvailable
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthException
 import com.google.firebase.auth.userProfileChangeRequest
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+
 
 class RegisterAccountFragment : Fragment() {
 

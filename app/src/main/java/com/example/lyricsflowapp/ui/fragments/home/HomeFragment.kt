@@ -1,5 +1,6 @@
 package com.example.lyricsflowapp.ui.fragments.home
 
+import com.example.lyricsflowapp.ui.fragments.spotify.SpotifyAppHandler
 import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -42,18 +43,29 @@ class HomeFragment : Fragment() {
     }
 
     private fun handleUserSelection() {
+        val spotifyAppHandler = SpotifyAppHandler()
+
+        // Get recommendations button
         binding.getSongsBtn.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_recommendationsFragment)
         }
 
+        // History button
         binding.historyBtn.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_historyFragment)
         }
 
+        // Spotify button
+        binding.spotifyBtn.setOnClickListener {
+            spotifyAppHandler.openSpotifyApp(requireContext())
+        }
+
+        // Settings button
         binding.settingsBtn.setOnClickListener {
             findNavController().navigate(R.id.action_homeFragment_to_settingsFragment)
         }
 
+        // Logout button
         binding.btnLogout.setOnClickListener {
             userLogout()
         }
