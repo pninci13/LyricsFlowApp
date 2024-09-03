@@ -3,19 +3,23 @@ package com.example.lyricsflowapp.ui.fragments.settings
 import android.annotation.SuppressLint
 import android.app.Dialog
 import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.fragment.app.Fragment
-import androidx.navigation.fragment.findNavController
-import com.example.lyricsflowapp.R
-import com.example.lyricsflowapp.databinding.FragmentSettingsBinding
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.navigation.fragment.findNavController
+import com.example.lyricsflowapp.R
+import com.example.lyricsflowapp.databinding.FragmentSettingsBinding
 import com.example.lyricsflowapp.ui.helpers.AlertHelper
+import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 
@@ -23,6 +27,7 @@ class SettingsFragment : Fragment() {
 
     private lateinit var binding: FragmentSettingsBinding
     private lateinit var auth: FirebaseAuth
+    private lateinit var sharedPreferences: SharedPreferences
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -36,6 +41,7 @@ class SettingsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         auth = FirebaseAuth.getInstance()
+        sharedPreferences = requireActivity().getSharedPreferences("userPrefs", Context.MODE_PRIVATE)
 
         // Go back to home page
         binding.goBackBtn.setOnClickListener {
@@ -56,6 +62,12 @@ class SettingsFragment : Fragment() {
         binding.btnDeleteAccount.setOnClickListener {
             showDeleteAccountDialog()
         }
+
+        // Update Username
+        binding.btnChangeUsername.setOnClickListener {
+            showUpdateUsernameDialog()
+        }
+
     }
 
     private fun showReportBugDialog() {
@@ -194,5 +206,48 @@ class SettingsFragment : Fragment() {
         findNavController().navigate(R.id.action_settingsFragment_to_authentication)
     }
 
+    private fun showUpdateUsernameDialog() {
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(R.layout.dialog_update_username)
 
+        val usernameEditText: EditText = dialog.findViewById(R.id.usernameEditText)
+        val updateButton: Button = dialog.findViewById(R.id.updateButton)
+
+        updateButton.setOnClickListener {
+            val newUsername = usernameEditText.text.toString().trim()
+            if (newUsername.isNotEmpty()) {
+                updateUsernameInFirebase(newUsername)
+                dialog.dismiss()
+            } else {
+                Toast.makeText(requireContext(), "Username cannot be empty", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        dialog.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog.window?.setBackgroundDrawableResource(R.drawable.dialog_background)
+        dialog.show()
+    }
+
+    private fun updateUsernameInFirebase(newUsername: String) {
+        val userId = auth.currentUser?.uid
+        if (userId != null) {
+            val userRef = FirebaseDatabase.getInstance().getReference("users/$userId")
+            userRef.child("username").setValue(newUsername)
+                .addOnCompleteListener { task ->
+                    if (task.isSuccessful) {
+                        Toast.makeText(requireContext(), "Username updated successfully", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(requireContext(), "Failed to update username", Toast.LENGTH_SHORT).show()
+                    }
+                }
+                .addOnFailureListener { exception ->
+                    Toast.makeText(requireContext(), "Error: ${exception.message}", Toast.LENGTH_SHORT).show()
+                }
+        } else {
+            Toast.makeText(requireContext(), "User is not authenticated", Toast.LENGTH_SHORT).show()
+        }
+    }
 }

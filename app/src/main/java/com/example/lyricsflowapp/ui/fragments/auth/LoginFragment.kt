@@ -57,10 +57,12 @@ class LoginFragment : Fragment() {
                 binding.loginProgressBar.isVisible = true
                 loginUser(email, password)
             } else {
-                AlertHelper.showAlertDialog(requireActivity(), "Please fill out the password field!")
+                AlertHelper.showWarningDialog(requireActivity(), "Warning", "Fill out the password field!") {
+                }
             }
         } else {
-            AlertHelper.showAlertDialog(requireActivity(), "Please fill out the email field!")
+            AlertHelper.showWarningDialog(requireActivity(), "Warning", "Fill out the email field!") {
+            }
         }
     }
 
@@ -75,12 +77,13 @@ class LoginFragment : Fragment() {
                     }
                 } else {
                     binding.loginProgressBar.isVisible = false
-                    AlertHelper.showAlertDialog(requireActivity(), "Authentication Failed: ${task.exception?.message}")
+                    AlertHelper.showErrorDialog(requireActivity(), "Error", "Authentication Failed: ${task.exception?.message}, please try again!"){
+                    }
                 }
             }
             .addOnFailureListener { exception ->
                 binding.loginProgressBar.isVisible = false
-                AlertHelper.showAlertDialog(requireActivity(), "Authentication Failed: ${exception.message}")
+                AlertHelper.showErrorDialog(requireActivity(), "Error", "Authentication Failed: ${exception.message}, please try again!"){}
             }
     }
 

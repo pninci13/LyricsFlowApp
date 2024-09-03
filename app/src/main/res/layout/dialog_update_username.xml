@@ -1,0 +1,41 @@
+<!-- res/layout/dialog_update_username.xml -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:padding="24dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="16sp"
+        android:text="@string/change_username"
+        android:textColor="@color/white"
+        android:fontFamily="@font/montserrat_bold"
+        android:layout_gravity="center"
+        android:gravity="center"/>
+
+    <EditText
+        android:id="@+id/usernameEditText"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:hint="@string/new_username"
+        android:textSize="14sp"
+        android:fontFamily="@font/montserrat_regular"
+        android:inputType="textPersonName"
+        android:gravity="center"
+        android:background="@drawable/rounded_edit_text"
+        app:backgroundTint="@null"/>
+
+    <Button
+        android:id="@+id/updateButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="@string/update"
+        android:fontFamily="@font/montserrat_bold"
+        android:background="@drawable/button_bg"
+        app:backgroundTint="@null"/>
+</LinearLayout>

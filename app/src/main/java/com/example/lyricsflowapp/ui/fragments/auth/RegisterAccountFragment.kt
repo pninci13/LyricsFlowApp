@@ -61,28 +61,32 @@ class RegisterAccountFragment : Fragment() {
                         binding.createAccProgressBar.isVisible = true
                         registerUser(email, password, username)
                     } else {
-                        AlertHelper.showAlertDialog(
+                        AlertHelper.showWarningDialog(
                             requireActivity(),
+                            "Error",
                             "Please fill out the password field!"
-                        )
+                        ){}
                     }
                 } else {
-                    AlertHelper.showAlertDialog(
+                    AlertHelper.showWarningDialog(
                         requireActivity(),
+                        "Error",
                         "Please fill out the email field!"
-                    )
+                    ){}
                 }
             } else {
-                AlertHelper.showAlertDialog(
+                AlertHelper.showWarningDialog(
                     requireActivity(),
+                    "Error",
                     "Please fill out the username field!"
-                )
+                ){}
             }
         } else {
-            AlertHelper.showAlertDialog(
+            AlertHelper.showWarningDialog(
                 requireActivity(),
-                "No internet connection. Please check your connection and try again."
-            )
+                "Error",
+                "No internet connection. Please check your connection and try again!"
+            ){}
         }
     }
 
@@ -119,25 +123,27 @@ class RegisterAccountFragment : Fragment() {
                                             }
                                         } else {
                                             binding.createAccProgressBar.isVisible = false
-                                            AlertHelper.showAlertDialog(
+                                            AlertHelper.showErrorDialog(
                                                 requireActivity(),
+                                                "Error",
                                                 "Failed to update user profile!"
-                                            )
+                                            ){}
                                         }
                                     }
                             }
                             .addOnFailureListener { e ->
                                 binding.createAccProgressBar.isVisible = false
-                                AlertHelper.showAlertDialog(
+                                AlertHelper.showErrorDialog(
                                     requireActivity(),
+                                    "Error",
                                     "Failed to save user data!"
-                                )
+                                ){}
                                 e.printStackTrace()
                             }
                     }
                 } else {
                     binding.createAccProgressBar.isVisible = false
-                    AlertHelper.showAlertDialog(requireActivity(), "Registration failed!")
+                    AlertHelper.showErrorDialog(requireActivity(), "Error", "Registration failed!"){}
                     task.exception?.printStackTrace()
                 }
             }

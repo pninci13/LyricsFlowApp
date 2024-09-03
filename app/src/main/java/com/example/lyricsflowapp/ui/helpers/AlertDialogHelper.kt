@@ -1,5 +1,6 @@
 package com.example.lyricsflowapp.ui.helpers
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.app.AlertDialog
 import android.widget.Button
@@ -54,4 +55,54 @@ object AlertHelper {
         alertDialog.show()
         alertDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
     }
+
+    fun showErrorDialog(activity: Activity, title: String, message: String, onConfirm: () -> Unit) {
+        val builder = AlertDialog.Builder(activity)
+        val inflater = activity.layoutInflater
+        val dialogView = inflater.inflate(R.layout.custom_error_alert_dialog, null)
+        builder.setView(dialogView)
+
+        val tvTitle = dialogView.findViewById<TextView>(R.id.successTitle)
+        val tvMessage = dialogView.findViewById<TextView>(R.id.successMessage)
+        val btnOk = dialogView.findViewById<Button>(R.id.btnOkay)
+
+        tvTitle.text = title
+        tvMessage.text = message
+
+        val alertDialog = builder.create()
+
+        btnOk.setOnClickListener {
+            alertDialog.dismiss()
+            onConfirm()
+        }
+
+        alertDialog.show()
+        alertDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+    }
+
+    @SuppressLint("MissingInflatedId")
+    fun showWarningDialog(activity: Activity, title: String, message: String, onConfirm: () -> Unit) {
+        val builder = AlertDialog.Builder(activity)
+        val inflater = activity.layoutInflater
+        val dialogView = inflater.inflate(R.layout.custom_waning_alert_dialog, null)
+        builder.setView(dialogView)
+
+        val tvTitle = dialogView.findViewById<TextView>(R.id.warningTitle)
+        val tvMessage = dialogView.findViewById<TextView>(R.id.warningMessage)
+        val btnOk = dialogView.findViewById<Button>(R.id.btnOkay)
+
+        tvTitle.text = title
+        tvMessage.text = message
+
+        val alertDialog = builder.create()
+
+        btnOk.setOnClickListener {
+            alertDialog.dismiss()
+            onConfirm()
+        }
+
+        alertDialog.show()
+        alertDialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+    }
+
 }

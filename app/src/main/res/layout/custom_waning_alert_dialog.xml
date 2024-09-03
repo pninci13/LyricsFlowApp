@@ -12,25 +12,32 @@
         android:id="@+id/successIcon"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:src="@drawable/ic_success"
-        android:contentDescription="@string/success_icon" />
+        android:src="@drawable/ic_high_warning"
+        android:contentDescription="@string/warning_icon"
+        android:fontFamily="@font/montserrat_bold"
+        android:layout_marginBottom="16dp"/>
 
     <TextView
-        android:id="@+id/successTitle"
+        android:id="@+id/warningTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="@string/success"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:text="@string/attention"
         android:textColor="@android:color/white"
         android:textSize="20sp"
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/successMessage"
+        android:id="@+id/warningMessage"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="@string/transaction_completed_successfully"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="24dp"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:fontFamily="@font/montserrat_regular"
+        android:text="@string/place_here_the_delete_message"
         android:textColor="@android:color/white"
         android:textSize="16sp" />
 
@@ -43,4 +50,5 @@
         android:background="@drawable/button_bg"
         android:textColor="@android:color/white"
         app:backgroundTint="@null" />
+
 </LinearLayout>

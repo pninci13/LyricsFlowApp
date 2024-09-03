@@ -50,7 +50,11 @@ class RecoverAccountFragment : Fragment() {
             binding.recoverAccProgressBar.isVisible = true
             recoverUserAccount(email)
         } else {
-            AlertHelper.showAlertDialog(requireActivity(),"Please fill out the email field!")
+            AlertHelper.showWarningDialog(
+                requireActivity(),
+                "Warning",
+                "Please fill out the email field, so that we can send the recover email!"
+            ) {}
         }
     }
 
@@ -59,12 +63,20 @@ class RecoverAccountFragment : Fragment() {
             .addOnCompleteListener(requireActivity()) { task ->
                 if (task.isSuccessful) {
                     binding.recoverAccProgressBar.isVisible = false
-                    AlertHelper.showSuccessDialog(requireActivity(), "Success", "Recovery email sent successfully!") {
+                    AlertHelper.showSuccessDialog(
+                        requireActivity(),
+                        "Success",
+                        "Recovery email sent successfully!"
+                    ) {
                         findNavController().navigate(R.id.action_recoverAccountFragment_to_loginFragment)
                     }
                 } else {
                     binding.recoverAccProgressBar.isVisible = false
-                    AlertHelper.showAlertDialog(requireActivity(), "Failed to send recovery email!")
+                    AlertHelper.showErrorDialog(
+                        requireActivity(),
+                        "Error",
+                        "Failed to send recovery email!"
+                    ) {}
                 }
             }
     }
