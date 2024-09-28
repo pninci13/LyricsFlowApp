@@ -36,6 +36,9 @@
         <action
             android:id="@+id/action_homeFragment_to_settingsFragment"
             app:destination="@id/settingsFragment" />
+        <action
+            android:id="@+id/action_homeFragment_to_tutorialFirstFragment"
+            app:destination="@id/tutorialFirstFragment" />
     </fragment>
     <fragment
         android:id="@+id/recommendationsFragment"
@@ -116,5 +119,65 @@
         <action
             android:id="@+id/action_settingsFragment_to_authentication"
             app:destination="@id/authentication" />
+    </fragment>
+    <fragment
+        android:id="@+id/tutorialFirstFragment"
+        android:name="com.example.lyricsflowapp.ui.fragments.tutorial.TutorialFirstFragment"
+        android:label="fragment_tutorial_first"
+        tools:layout="@layout/fragment_tutorial_first" >
+        <action
+            android:id="@+id/action_tutorialFirstFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+        <action
+            android:id="@+id/action_tutorialFirstFragment_to_tutorialSecondFragment"
+            app:destination="@id/tutorialSecondFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tutorialSecondFragment"
+        android:name="com.example.lyricsflowapp.ui.fragments.tutorial.TutorialSecondFragment"
+        android:label="fragment_tutorial_second"
+        tools:layout="@layout/fragment_tutorial_second" >
+        <action
+            android:id="@+id/action_tutorialSecondFragment_to_tutorialFirstFragment"
+            app:destination="@id/tutorialFirstFragment" />
+        <action
+            android:id="@+id/action_tutorialSecondFragment_to_tutorialThirdFragment"
+            app:destination="@id/tutorialThirdFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tutorialThirdFragment"
+        android:name="com.example.lyricsflowapp.ui.fragments.tutorial.TutorialThirdFragment"
+        android:label="fragment_tutorial_third"
+        tools:layout="@layout/fragment_tutorial_third" >
+        <action
+            android:id="@+id/action_tutorialThirdFragment_to_tutorialSecondFragment"
+            app:destination="@id/tutorialSecondFragment" />
+        <action
+            android:id="@+id/action_tutorialThirdFragment_to_tutorialFourthFragment"
+            app:destination="@id/tutorialFourthFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tutorialFifthFragment"
+        android:name="com.example.lyricsflowapp.ui.fragments.tutorial.TutorialFifthFragment"
+        android:label="fragment_tutorial_fifth"
+        tools:layout="@layout/fragment_tutorial_fifth" >
+        <action
+            android:id="@+id/action_tutorialFifthFragment_to_tutorialFourthFragment"
+            app:destination="@id/tutorialFourthFragment" />
+        <action
+            android:id="@+id/action_tutorialFifthFragment_to_homeFragment"
+            app:destination="@id/homeFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/tutorialFourthFragment"
+        android:name="com.example.lyricsflowapp.ui.fragments.tutorial.TutorialFourthFragment"
+        android:label="fragment_tutorial_fourth"
+        tools:layout="@layout/fragment_tutorial_fourth" >
+        <action
+            android:id="@+id/action_tutorialFourthFragment_to_tutorialThirdFragment"
+            app:destination="@id/tutorialThirdFragment" />
+        <action
+            android:id="@+id/action_tutorialFourthFragment_to_tutorialFifthFragment"
+            app:destination="@id/tutorialFifthFragment" />
     </fragment>
 </navigation>

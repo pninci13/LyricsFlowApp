@@ -17,7 +17,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
         android:layout_marginTop="0dp"
-        android:layout_marginEnd="0dp"/>
+        android:layout_marginEnd="0dp" />
 
     <!-- Welcome Text -->
     <TextView
@@ -30,7 +30,7 @@
         android:textColor="#D1D1D1"
         android:layout_marginTop="100dp"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true" />
 
     <!-- User Name -->
     <TextView
@@ -43,7 +43,7 @@
         android:textColor="@color/white"
         android:layout_below="@id/tvWelcomeBack"
         android:layout_marginTop="6dp"
-        android:layout_centerHorizontal="true"/>
+        android:layout_centerHorizontal="true" />
 
     <!-- Centralizing Layout -->
     <LinearLayout
@@ -60,7 +60,7 @@
             android:layout_height="wrap_content"
             android:columnCount="2"
             android:rowCount="2"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="56dp"
             android:alignmentMode="alignMargins"
             android:rowOrderPreserved="false">
 
@@ -82,13 +82,13 @@
                     android:fontFamily="@font/montserrat_bold"
                     android:textSize="16sp"
                     android:textColor="#FFFFFF"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_recommendation"
-                    android:layout_marginTop="8dp"/>
+                    android:layout_marginTop="8dp" />
             </LinearLayout>
 
             <!-- History Button -->
@@ -109,13 +109,13 @@
                     android:fontFamily="@font/montserrat_bold"
                     android:textSize="16sp"
                     android:textColor="#FFFFFF"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_history"
-                    android:layout_marginTop="8dp"/>
+                    android:layout_marginTop="8dp" />
             </LinearLayout>
 
             <!-- Spotify Integration -->
@@ -136,13 +136,13 @@
                     android:fontFamily="@font/montserrat_bold"
                     android:textSize="16sp"
                     android:textColor="#FFFFFF"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_spotify"
-                    android:layout_marginTop="8dp"/>
+                    android:layout_marginTop="8dp" />
             </LinearLayout>
 
             <!-- Settings Button -->
@@ -163,14 +163,43 @@
                     android:fontFamily="@font/montserrat_bold"
                     android:textSize="16sp"
                     android:textColor="#FFFFFF"
-                    android:layout_gravity="center"/>
+                    android:layout_gravity="center" />
 
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/ic_settings"
-                    android:layout_marginTop="8dp"/>
+                    android:layout_marginTop="8dp" />
             </LinearLayout>
         </GridLayout>
+
+        <!-- Need Help Text -->
+        <TextView
+            android:id="@+id/helpText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Need any help?"
+            android:fontFamily="@font/montserrat_regular"
+            android:textColor="#D1D1D1"
+            android:textSize="18sp"
+            android:layout_marginTop="48dp"
+            android:layout_gravity="center" />
+
+        <!-- Tutorial Text (Clickable) -->
+        <TextView
+            android:id="@+id/tutorialBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Go to the tutorial"
+            android:textColor="#9DD69B"
+            android:textSize="20sp"
+            android:drawableStart="@drawable/ic_info"
+            android:drawablePadding="8dp"
+            android:layout_gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:padding="8dp"
+            android:fontFamily="@font/montserrat_bold"/>
+
     </LinearLayout>
 </RelativeLayout>

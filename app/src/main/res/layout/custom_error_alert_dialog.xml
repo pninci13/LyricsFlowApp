@@ -32,7 +32,9 @@
         android:layout_marginTop="8dp"
         android:text="@string/place_here_the_error_message"
         android:textColor="@android:color/white"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        android:layout_gravity="center"
+        android:gravity="center"/>
 
     <Button
         android:id="@+id/btnOkay"

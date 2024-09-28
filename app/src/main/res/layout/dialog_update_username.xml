@@ -29,6 +29,19 @@
         android:background="@drawable/rounded_edit_text"
         app:backgroundTint="@null"/>
 
+    <EditText
+        android:id="@+id/passwordEditText"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_marginTop="16dp"
+        android:hint="@string/enter_your_password"
+        android:textSize="14sp"
+        android:fontFamily="@font/montserrat_regular"
+        android:inputType="textPassword"
+        android:gravity="center"
+        android:background="@drawable/rounded_edit_text"
+        app:backgroundTint="@null"/>
+
     <Button
         android:id="@+id/updateButton"
         android:layout_width="match_parent"

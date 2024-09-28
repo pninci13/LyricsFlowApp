@@ -76,6 +76,5 @@
     <string name="change_username">Change Username</string>
     <string name="new_username">New Username</string>
     <string name="update">Update</string>
-
-
+    <string name="enter_your_password">Enter your password</string>
 </resources>

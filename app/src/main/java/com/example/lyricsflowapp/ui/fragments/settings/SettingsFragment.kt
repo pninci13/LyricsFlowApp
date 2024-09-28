@@ -12,8 +12,6 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
-import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.lyricsflowapp.R
@@ -21,6 +19,7 @@ import com.example.lyricsflowapp.databinding.FragmentSettingsBinding
 import com.example.lyricsflowapp.ui.helpers.AlertHelper
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseAuthRecentLoginRequiredException
 import com.google.firebase.database.FirebaseDatabase
 
 class SettingsFragment : Fragment() {
@@ -77,6 +76,7 @@ class SettingsFragment : Fragment() {
         val bugDescriptionEditText: EditText = dialog.findViewById(R.id.bugDescriptionEditText)
         val sendButton: Button = dialog.findViewById(R.id.sendButton)
 
+        // Handles the click on the input text field
         bugDescriptionEditText.setOnFocusChangeListener { _, hasFocus ->
             if (hasFocus) {
                 bugDescriptionEditText.hint = ""
@@ -87,12 +87,16 @@ class SettingsFragment : Fragment() {
             }
         }
 
+        // Listener for the "send" button
         sendButton.setOnClickListener {
-            val bugDescription = bugDescriptionEditText.text.toString()
-            if (bugDescription.isNotEmpty()) {
+            val bugDescription = bugDescriptionEditText.text.toString().trim()
+
+            if (bugDescription.isEmpty()) {
+                AlertHelper.showErrorDialog(requireActivity(), "Error", "Bug description cannot be empty!"){}
+            } else {
                 saveBugReportToFirebase(bugDescription)
+                dialog.dismiss()
             }
-            dialog.dismiss()
         }
 
         // Set dialog width to match parent
@@ -101,7 +105,6 @@ class SettingsFragment : Fragment() {
             ViewGroup.LayoutParams.WRAP_CONTENT
         )
         dialog.window?.setBackgroundDrawableResource(R.drawable.dialog_background)
-
         dialog.show()
     }
 
@@ -115,17 +118,9 @@ class SettingsFragment : Fragment() {
             bugReportsRef.child(bugReportId).setValue(bugReport)
                 .addOnCompleteListener { task ->
                     if (task.isSuccessful) {
-                        Toast.makeText(
-                            requireContext(),
-                            "Bug report submitted successfully",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        AlertHelper.showErrorDialog(requireActivity(), "Success", "Bug report submitted successfully!"){}
                     } else {
-                        Toast.makeText(
-                            requireContext(),
-                            "Failed to submit bug report",
-                            Toast.LENGTH_SHORT
-                        ).show()
+                        AlertHelper.showErrorDialog(requireActivity(), "Error", "Failed to submit bug report!"){}
                     }
                 }
         }
@@ -175,51 +170,102 @@ class SettingsFragment : Fragment() {
         if (userId != null) {
             val userRef = FirebaseDatabase.getInstance().getReference("users/$userId")
 
-            // Delete user data
+            // Delete user data from the Firebase Realtime Database
             userRef.removeValue()
                 .addOnSuccessListener {
-                    // Optionally, delete the user's authentication record
-                    FirebaseAuth.getInstance().currentUser?.delete()
+                    // Delete the user's authentication record
+                    val user = FirebaseAuth.getInstance().currentUser
+                    user?.delete()
                         ?.addOnCompleteListener { task ->
                             if (task.isSuccessful) {
-                                // Sign out the user and navigate away
                                 FirebaseAuth.getInstance().signOut()
-                                // Navigate to login or appropriate screen
+                                findNavController().navigate(R.id.action_settingsFragment_to_authentication)
                             } else {
-                                // Handle the error, if any
+                                // Handle deletion failure due to re-authentication requirement or other errors
+                                if (task.exception is FirebaseAuthRecentLoginRequiredException) {
+                                    // Prompt the user to re-authenticate before deleting their account
+                                    AlertHelper.showErrorDialog(requireActivity(), "Error", "Please re-authenticate to delete your account.") {}
+                                } else {
+                                    // Handle other potential errors (network issues, permission errors, etc.)
+                                    AlertHelper.showErrorDialog(requireActivity(), "Error", "Failed to delete account. Please try again.") {}
+                                }
                             }
                         }
+                        ?.addOnFailureListener { exception ->
+                            // Handle failure to delete the authentication record
+                            AlertHelper.showErrorDialog(requireActivity(), "Error", "Failed to delete account authentication record: ${exception.message}") {}
+                        }
                 }
-                .addOnFailureListener {
-                    // Handle the error
+                .addOnFailureListener { exception ->
+                    // Handle failure to delete user data from Firebase Database
+                    AlertHelper.showErrorDialog(requireActivity(), "Error", "Failed to delete user data: ${exception.message}") {}
                 }
+        } else {
+            // Handle case where userId is null (user not logged in)
+            AlertHelper.showErrorDialog(requireActivity(), "Error", "User is not authenticated!") {}
         }
     }
 
+    @SuppressLint("SetTextI18n")
     private fun userLogout() {
-        val sharedPreferences = requireActivity().getSharedPreferences("userPrefs", Context.MODE_PRIVATE)
-        val editor = sharedPreferences.edit()
-        editor.clear()
-        editor.apply()
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(R.layout.dialog_logout_confirmation)
 
-        auth.signOut()
-        findNavController().navigate(R.id.action_settingsFragment_to_authentication)
+        val logoutTextView: TextView = dialog.findViewById(R.id.logoutMessage)
+        val btnYes: Button = dialog.findViewById(R.id.btnYes)
+        val btnNo: Button = dialog.findViewById(R.id.btnNo)
+
+        logoutTextView.text = "Are you sure you want to logout?"
+
+        // Handle the "Yes" button action
+        btnYes.setOnClickListener {
+            val sharedPreferences = requireActivity().getSharedPreferences("userPrefs", Context.MODE_PRIVATE)
+            val editor = sharedPreferences.edit()
+            editor.clear()
+            editor.apply()
+
+            auth.signOut()
+            AlertHelper.showSuccessDialog(requireActivity(), "Success", "Logged out successfully!") {
+                findNavController().navigate(R.id.action_homeFragment_to_authentication)
+            }
+            dialog.dismiss()
+        }
+
+        // Handle the "No" button action
+        btnNo.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        // Remove the default white borders by setting the background to null
+        dialog.window?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        dialog.window?.setLayout(
+            ViewGroup.LayoutParams.MATCH_PARENT,
+            ViewGroup.LayoutParams.WRAP_CONTENT
+        )
+        dialog.show()
     }
+
+
 
     private fun showUpdateUsernameDialog() {
         val dialog = Dialog(requireContext())
         dialog.setContentView(R.layout.dialog_update_username)
 
         val usernameEditText: EditText = dialog.findViewById(R.id.usernameEditText)
+        val passwordEditText: EditText = dialog.findViewById(R.id.passwordEditText)
         val updateButton: Button = dialog.findViewById(R.id.updateButton)
 
         updateButton.setOnClickListener {
             val newUsername = usernameEditText.text.toString().trim()
-            if (newUsername.isNotEmpty()) {
-                updateUsernameInFirebase(newUsername)
+            val password = passwordEditText.text.toString().trim()
+
+            if (newUsername.isNotEmpty() && password.isNotEmpty()) {
+                // Pass both username and password to the updated function
+                updateUsernameInFirebase(newUsername, password)
                 dialog.dismiss()
             } else {
-                Toast.makeText(requireContext(), "Username cannot be empty", Toast.LENGTH_SHORT).show()
+                AlertHelper.showErrorDialog(requireActivity(), "Error", "Username and password can't be empty!"){}
             }
         }
 
@@ -231,23 +277,40 @@ class SettingsFragment : Fragment() {
         dialog.show()
     }
 
-    private fun updateUsernameInFirebase(newUsername: String) {
-        val userId = auth.currentUser?.uid
-        if (userId != null) {
-            val userRef = FirebaseDatabase.getInstance().getReference("users/$userId")
-            userRef.child("username").setValue(newUsername)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {
-                        Toast.makeText(requireContext(), "Username updated successfully", Toast.LENGTH_SHORT).show()
+    private fun updateUsernameInFirebase(newUsername: String, password: String) {
+        val user = auth.currentUser
+        if (user != null) {
+            // Get the user's credentials (for re-authentication)
+            val credential = EmailAuthProvider.getCredential(user.email!!, password)
+
+            // Re-authenticate the user
+            user.reauthenticate(credential)
+                .addOnCompleteListener { reauthTask ->
+                    if (reauthTask.isSuccessful) {
+                        // If re-authentication is successful, proceed to update the username
+                        val userId = user.uid
+                        val userRef = FirebaseDatabase.getInstance().getReference("users/$userId")
+                        userRef.child("username").setValue(newUsername)
+                            .addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    AlertHelper.showSuccessDialog(requireActivity(), "Success", "Username updated successfully!") {}
+                                } else {
+                                    AlertHelper.showErrorDialog(requireActivity(), "Error", "Failed to update username!") {}
+                                }
+                            }
+                            .addOnFailureListener { exception ->
+                                Toast.makeText(requireContext(), "Error: ${exception.message}", Toast.LENGTH_SHORT).show()
+                            }
                     } else {
-                        Toast.makeText(requireContext(), "Failed to update username", Toast.LENGTH_SHORT).show()
+                        AlertHelper.showErrorDialog(requireActivity(), "Error", "Re-authentication failed!") {}
                     }
                 }
                 .addOnFailureListener { exception ->
-                    Toast.makeText(requireContext(), "Error: ${exception.message}", Toast.LENGTH_SHORT).show()
+                    AlertHelper.showErrorDialog(requireActivity(), "Error", "Re-authentication error: ${exception.message}"){}
                 }
         } else {
-            Toast.makeText(requireContext(), "User is not authenticated", Toast.LENGTH_SHORT).show()
+            AlertHelper.showErrorDialog(requireActivity(), "Error", "User is not authenticated!") {}
         }
     }
+
 }
