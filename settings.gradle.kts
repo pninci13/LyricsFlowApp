@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "LyricsFlowApp"
 include(":app")
+include(":lyrics-flow-app-rf")
